@@ -1,7 +1,12 @@
 class PlacesController < ApplicationController
 
   def index
-    @places = Place.all
+    if session["user_id"] == nil
+      flash["notice"] = "You must be logged in to see entries."
+      redirect_to "/login"
+    else
+      @places = Place.where(user_id: session["user_id"])
+    end
   end
 
   def show
@@ -13,10 +18,20 @@ class PlacesController < ApplicationController
   end
 
   def create
-    @place = Place.new
-    @place["name"] = params["name"]
-    @place.save
-    redirect_to "/places"
+    if session["user_id"] == nil
+      flash["notice"] = "You must be logged in."
+      redirect_to "/login"
+    else
+      @entry = Entry.new(entry_params)
+      @entry.user_id = session["user_id"]
+      
+      if @entry.save
+        flash["notice"] = "Entry created!"
+        redirect_to "/entries"
+      else
+        render :new
+      end
+    end
   end
 
 end
