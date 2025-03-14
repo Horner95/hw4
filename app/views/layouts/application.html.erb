@@ -14,10 +14,27 @@
       <%= flash["notice"] %>
     </div>
     <div>
-      <a href="/">Home</a>
-      <a href="/logout">Logout</a>
-      <a href="/login">Login</a>
-      <a href="/users/new">Signup</a>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+          <% @user = User.find_by({ "id" => session["user_id"] }) %>
+          <% if @user == nil %>
+            <li class="nav-item">
+              <a href="/users/new" class="nav-link">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a href="/login" class="nav-link">Login</a>
+            </li>
+          <% else %>
+            <li class="navbar-text">
+              Logged in as: <%= @user["first_name"] %>
+              |
+            </li>
+            <li class="nav-item">
+              <a href="/logout" class="nav-link">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a href="/posts/new/" class="btn btn-success">New Post</a>
+            </li>
+          <% end %>
     </div>
 
     <%= yield %>
