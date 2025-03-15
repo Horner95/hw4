@@ -22,8 +22,11 @@ class PlacesController < ApplicationController
       flash["notice"] = "You must be logged in to create an entry."
       redirect_to "/login"
     else
-      @place = Place.new({ "name" => params["place"]["name"], "user_id" => session["user_id"] })
-      
+      @place = Place.new({ 
+        "name" => params["place"]["name"], 
+        "user_id" => session["user_id"]
+      })
+
       if @place.save
         flash["notice"] = "New entry created!"
         redirect_to "/places"

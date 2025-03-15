@@ -1,22 +1,27 @@
 <h1>New Entry</h1>
 
 <form action="/entries" method="post">
-  <input type="hidden" name="place_id" value="<%= params["place_id"] %>">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-  <p>
-    <label for="title_input">Title</label>
-    <input type="text" name="title" id="title_input">
-  </p>
+  <div class="mb-3">
+    <label for="title_input" class="form-label">Title</label>
+    <input type="text" name="entry[title]" id="title_input" class="form-control">
+  </div>
 
-  <p>
-    <label for="description_input">Description</label>
-    <input type="text" name="description" id="description_input">
-  </p>
+  <div class="mb-3">
+    <label for="description_input" class="form-label">Description</label>
+    <textarea name="entry[description]" id="description_input" class="form-control"></textarea>
+  </div>
 
-  <p>
-    <label for="occurred_on_input">Occurred On</label>
-    <input type="date" name="occurred_on" id="occurred_on_input">
-  </p>
+  <div class="mb-3">
+    <label for="occurred_on" class="form-label">Date</label>
+    <input type="date" name="entry[occurred_on]" id="occurred_on" class="form-control">
+  </div>
 
-  <button>Save</button>
+  <div class="mb-3">
+    <label for="image_url" class="form-label">Image URL</label>
+    <input type="text" name="entry[image_url]" class="form-control">
+  </div>
+
+  <button class="btn btn-primary">Create Entry</button>
 </form>
