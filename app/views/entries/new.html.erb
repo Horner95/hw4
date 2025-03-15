@@ -2,6 +2,9 @@
 
 <form action="/entries" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  
+  <!-- ✅ Ensure the place_id is included in the form -->
+  <input type="hidden" name="entry[place_id]" value="<%= params[:place_id] %>">
 
   <div class="mb-3">
     <label for="title_input" class="form-label">Title</label>
