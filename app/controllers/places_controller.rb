@@ -19,19 +19,18 @@ class PlacesController < ApplicationController
 
   def create
     if session["user_id"] == nil
-      flash["notice"] = "You must be logged in."
+      flash["notice"] = "You must be logged in to create an entry."
       redirect_to "/login"
     else
-      @entry = Entry.new(entry_params)
-      @entry.user_id = session["user_id"]
+      @place = Place.new({ "name" => params["place"]["name"], "user_id" => session["user_id"] })
       
-      if @entry.save
-        flash["notice"] = "Entry created!"
-        redirect_to "/entries"
+      if @place.save
+        flash["notice"] = "New entry created!"
+        redirect_to "/places"
       else
-        render :new
+        render "new"
       end
     end
   end
-
 end
+
